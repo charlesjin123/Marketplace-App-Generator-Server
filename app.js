@@ -3,6 +3,7 @@ const app = express()
 const port = 3000
 
 app.get('/generate/:appName', (req, res) => {
+	console.log("generating app: " + req.params.appName);
 	generate_app(req.params.appName, () => {
 		//res.send("App generated with appName: " + req.params.appName);
 		const file = __dirname + "/public/" + req.params.appName + ".zip";
