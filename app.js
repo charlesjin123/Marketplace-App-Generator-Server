@@ -6,7 +6,7 @@ app.get('/generate/:appName', (req, res) => {
 	console.log("generating app: " + req.params.appName);
 	generate_app(req.params.appName, () => {
 		//res.send("App generated with appName: " + req.params.appName);
-		const file = __dirname + "/public/" + req.params.appName + ".zip";
+		const file = __dirname + "/public/output" + req.params.appName + ".zip";
 		// res.download(file);
 		res.sendFile(file);
 	});
@@ -22,10 +22,11 @@ app.use(express.static('public'))
 function generate_app(appName, callback) {
 	const exec = require("child_process").exec;
 	exec(
-		"cd ../test-yo/generator-test" + " && " +
+		// "cd ../test-yo/generator-test" + " && " +
+		"cd ../Marketplace-App-Generator-Generator" + " && " +
 		"yo test " + appName + " --force" + " && " +
-		"powershell Compress-Archive public/" + appName + " ../../test-expressjs/public/" + appName + ".zip" // windows version
-		// "zip -r " + appName + ".zip " + appName // linux version
+		// "powershell Compress-Archive public/" + appName + " ../../test-expressjs/public/" + appName + ".zip" // windows version
+		"zip -r " + "../Marketplace-App-Generator-Server/public/output/" + appName + ".zip " + "public/" + appName // linux version
 		, (error, stdout, stderr) => {
 	    if (error) {
 	        console.log(`error: ${error.message}`);
