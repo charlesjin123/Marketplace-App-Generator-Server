@@ -6,7 +6,7 @@ app.get('/generate/:appName', (req, res) => {
 	console.log("generating app: " + req.params.appName);
 	generate_app(req.params.appName, () => {
 		//res.send("App generated with appName: " + req.params.appName);
-		const file = __dirname + "/public/output" + req.params.appName + ".zip";
+		const file = __dirname + "/public/output/" + req.params.appName + ".zip";
 		// res.download(file);
 		res.sendFile(file);
 	});
