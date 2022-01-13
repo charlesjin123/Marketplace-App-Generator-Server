@@ -7,7 +7,8 @@ app.get('/generate/:appName', (req, res) => {
 	generate_app(req.params.appName, () => {
 		//res.send("App generated with appName: " + req.params.appName);
 		const file = __dirname + "/public/" + req.params.appName + ".zip";
-		res.download(file);
+		// res.download(file);
+		res.sendFile(file);
 	});
 	
 })
@@ -23,7 +24,8 @@ function generate_app(appName, callback) {
 	exec(
 		"cd ../test-yo/generator-test" + " && " +
 		"yo test " + appName + " --force" + " && " +
-		"powershell Compress-Archive public/" + appName + " ../../test-expressjs/public/" + appName + ".zip"
+		"powershell Compress-Archive public/" + appName + " ../../test-expressjs/public/" + appName + ".zip" // windows version
+		// "zip -r " + appName + ".zip " + appName // linux version
 		, (error, stdout, stderr) => {
 	    if (error) {
 	        console.log(`error: ${error.message}`);
